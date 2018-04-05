@@ -6,12 +6,6 @@ import java.io.InputStream;
 
 public class FileParser {
 
-	private String fileName;
-
-	public FileParser(String fileName) {
-		this.fileName = fileName;
-	}
-
 	public FileParser() {
 	}
 
