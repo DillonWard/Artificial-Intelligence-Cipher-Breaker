@@ -15,5 +15,9 @@ public class Runner {
 		return new FileParser().readFile(filename);
 	}
 	
+	public String GenerateKey(String cipherKey) throws Throwable{
+		return new Keygen().generateKey(cipherKey);
+	}
+	
 
 }
