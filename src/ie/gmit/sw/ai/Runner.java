@@ -11,8 +11,8 @@ public class Runner {
 		
 	}
 	
-	public void FileParser(String filename){
-		
+	public String FileParser(String filename) throws Throwable{
+		return new FileParser().readFile(filename);
 	}
 	
 
