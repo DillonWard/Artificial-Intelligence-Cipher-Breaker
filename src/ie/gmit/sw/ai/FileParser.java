@@ -13,7 +13,6 @@ public class FileParser {
 		
 		InputStream input = new FileInputStream(fileName);
 		ByteArrayOutputStream response = new ByteArrayOutputStream();
-
 		byte[] bytes = new byte[1050];
 		int length;
 
@@ -23,6 +22,4 @@ public class FileParser {
 		}
 		return(response.toString().length() > 750) ? response.toString().substring(0, 750) : response.toString();
 	}
-
-	
 }

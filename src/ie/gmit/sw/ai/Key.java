@@ -1,5 +1,8 @@
 package ie.gmit.sw.ai;
 
+import java.security.SecureRandom;
+import java.util.Random;
+
 public class Key {
 
 	private static Key instance;
@@ -11,9 +14,21 @@ public class Key {
 		return (instance == null) ? new Key() : instance;
 	}
 
-//	public String generateKey(String cipherKey) {
-//		
-//	}
+	public String generateKey(char[] key) {
+		int index;
+		Random rand = new SecureRandom();
+		
+		for (int i = key.length - 1; i > 0; i--) {
+			 index = rand.nextInt(i + 1);
+			 if (index != i) {
+				 key[index] ^= key[i];
+				 key[i] ^= key[index];
+				 key[index] ^= key[i];
+			 } 
+		}	
+		return new String(key);
+		
+	}
 
 
 }
