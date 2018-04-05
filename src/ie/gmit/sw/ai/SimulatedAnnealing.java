@@ -1,11 +1,14 @@
 package ie.gmit.sw.ai;
 
+import java.util.Map;
 
 public class SimulatedAnnealing {
 	
+	private Map<String, Integer> grams;
 	
-	public void simulatedAnnealing(String key) throws Throwable{
+	public void simulatedAnnealing(Map<String, Integer> grams,String key) throws Throwable{
 		
-		System.out.println(key);
+		System.out.println(grams);
 	}
+	
 }

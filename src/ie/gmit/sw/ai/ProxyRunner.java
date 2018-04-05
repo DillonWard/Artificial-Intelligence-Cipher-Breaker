@@ -1,5 +1,6 @@
 package ie.gmit.sw.ai;
 
+import java.util.Map;
 import java.util.Scanner;
 
 public class ProxyRunner {
@@ -13,6 +14,8 @@ public class ProxyRunner {
 		SimulatedAnnealing sa = new SimulatedAnnealing();
 		Key key = new Key();
 		String genKey;
+		Map<String, Integer> grams; 
+		Grams g = new Grams();
 		
 		do {
 			System.out.println("1: Encrypt a file \n2: Decrypt a file \n3: Exit");
@@ -27,7 +30,8 @@ public class ProxyRunner {
 				String cipherText = new FileParser().readFile(fname);
 				long start = System.currentTimeMillis();
 				genKey = key.generateKey(cipherText.toCharArray());
-				sa.simulatedAnnealing(genKey);
+				grams = g.gramFactory(fname);
+				sa.simulatedAnnealing(grams, genKey);
 				
 				
 

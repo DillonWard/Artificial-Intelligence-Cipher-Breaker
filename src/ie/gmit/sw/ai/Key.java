@@ -21,8 +21,13 @@ public class Key {
 		for (int i = key.length - 1; i > 0; i--) {
 			 index = rand.nextInt(i + 1);
 			 if (index != i) {
+				 // key[index] = key[index] ^ key[i]
 				 key[index] ^= key[i];
+				 
+				 // key[i] = key[i] ^ key[index]
 				 key[i] ^= key[index];
+				 
+				 // key[index] = key[index] ^ key[i]
 				 key[index] ^= key[i];
 			 } 
 		}	
