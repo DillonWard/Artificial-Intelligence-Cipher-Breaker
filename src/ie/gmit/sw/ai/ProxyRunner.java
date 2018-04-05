@@ -13,12 +13,11 @@ public class ProxyRunner {
 		String fname = "";
 		SimulatedAnnealing sa = new SimulatedAnnealing();
 		Key key = new Key();
-		String genKey;
-		Map<String, Integer> grams; 
 		Grams g = new Grams();
+		Playfair pf = new Playfair();
 		
 		do {
-			System.out.println("1: Encrypt a file \n2: Decrypt a file \n3: Exit");
+			System.out.println("1: Decrypt a file \n2: Encrypt a file \n3: Exit");
 			choice = input.nextInt();
 
 			switch (choice) {
@@ -29,12 +28,13 @@ public class ProxyRunner {
 				
 				String cipherText = new FileParser().readFile(fname);
 				long start = System.currentTimeMillis();
-				genKey = key.generateKey(cipherText.toCharArray());
-				grams = g.gramFactory(fname);
-				sa.simulatedAnnealing(grams, genKey);
+				String genKey = key.generateKey(cipherText.toCharArray());
+				Map<String, Integer> grams = g.gramFactory(fname);
+				String decrypted = pf.decrypt(genKey);
+				double score = g.gradeDecrypt(decrypted);
 				
+				sa.simulatedAnnealing(grams, genKey, decrypted, score);
 				
-
 				break;
 
 			case 2:
