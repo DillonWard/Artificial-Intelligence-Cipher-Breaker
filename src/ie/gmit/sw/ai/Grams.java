@@ -20,7 +20,7 @@ public class Grams {
 	}// Constructor
 
 
-	public Map<String, Integer> gramFactory(String fileName) throws IOException {
+	public Map<String, Integer> gramFactory() throws IOException {
 		Stream<String> stream = Files.lines(Paths.get(fileName));
 
 		grams = stream

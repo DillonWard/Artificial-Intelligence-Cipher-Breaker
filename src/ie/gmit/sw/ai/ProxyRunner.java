@@ -27,19 +27,19 @@ public class ProxyRunner {
 				long start = System.currentTimeMillis();
 
 				SimulatedAnnealing sa = new SimulatedAnnealing(100, cipherText);
+				sa.simulate();
 				
+				long length = System.currentTimeMillis() - start;
 				
 				/*
+				 * was previously trying to generate everything before passing into
+				 * simulated annealing
 				String genKey = key.generateKey(cipherText.toCharArray());
 				Map<String, Integer> grams = g.gramFactory(fname);
 				String decrypted = new Playfair(cipherText).decrypt(genKey);
 				double score = g.gradeDecrypt(decrypted);
 				sa.simulatedAnnealing(cipherText, grams, genKey, decrypted, score);
 				*/
-				
-				
-				
-				
 				
 				break;
 
