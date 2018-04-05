@@ -5,9 +5,11 @@ public class ProxyRunner {
 	
 	public static void main(String[] args) {
 		
-		Runner runner = new Runner();
+		String fileName = "4grams.txt";
+		Runner runner = new Runner();		
 		
 		runner.Playfair();
+		
 		
 	}
 }
