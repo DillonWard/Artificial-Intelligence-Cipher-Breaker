@@ -6,26 +6,29 @@ import java.io.InputStream;
 
 public class FileParser {
 
-	//private String outputFile = "output.txt";
-	
-	public FileParser(){
-		
+	private String fileName;
+
+	public FileParser(String fileName) {
+		this.fileName = fileName;
+	}
+
+	public FileParser() {
 	}
 
 	public String readFile(String fileName) throws Throwable {
+		
+		InputStream input = new FileInputStream(fileName);
+		ByteArrayOutputStream response = new ByteArrayOutputStream();
+
 		byte[] bytes = new byte[1050];
 		int length;
-		
-		InputStream inputStream = new FileInputStream(fileName);
-		ByteArrayOutputStream result = new ByteArrayOutputStream();
-		
 
-		while ((length = inputStream.read(bytes)) != -1) {
-		    result.write(bytes, 0, length);
+		
+		while((length = input.read(bytes))!= -1){
+			response.write(bytes, 0, length);
 		}
-		return result.toString();
+		return(response.toString().length() > 750) ? response.toString().substring(0, 750) : response.toString();
 	}
 
 	
-		
 }

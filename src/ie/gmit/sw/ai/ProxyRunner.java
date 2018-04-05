@@ -6,20 +6,16 @@ public class ProxyRunner {
 	
 	public static void main(String[] args) throws Throwable {
 		
-		Runner runner = new Runner();	
-
+		Playfair playfair;
+		SimulatedAnnealing simulated;
+		Key key;
+		
 		String cipherKey = "ABCDEFGHIKLMNOPQRSTUVWXYZ";
 		String fileName = "4grams.txt";
 		
-		String cipherText = runner.FileParser(fileName);	
-		//System.out.println("File" + cipherText);
+		String file = new FileParser().readFile(fileName);
 		
-		long start = System.currentTimeMillis();
-		
-		String key = runner.GenerateKey(cipherKey);
-		//System.out.println("key " + key);
-		
-		
+		System.out.println(file);
 		
 		
 		
