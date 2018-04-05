@@ -3,6 +3,7 @@ package ie.gmit.sw.ai;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -11,11 +12,19 @@ public class Grams {
 
 	private Map<String, Integer> grams;
 	private double grade;
+	private String fileName;
+
+	public Grams(String fileName) {
+		this.fileName = fileName;
+		this.grams = new HashMap<String, Integer>();
+	}// Constructor
+
 
 	public Map<String, Integer> gramFactory(String fileName) throws IOException {
 		Stream<String> stream = Files.lines(Paths.get(fileName));
 
-		grams = stream.map(tmp -> tmp.split(" "))
+		grams = stream
+				.map(tmp -> tmp.split(" "))
 				.collect(Collectors.toMap(tmp -> tmp[0], tmp -> Integer.parseInt(tmp[1])));
 
 		stream.close();

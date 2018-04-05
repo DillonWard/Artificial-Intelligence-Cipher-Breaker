@@ -2,6 +2,6 @@ package ie.gmit.sw.ai;
 
 public interface Cryptography {
 
-	public String encrpyt(String key);
-	public String decrypt(String key);
+	public String encrpyt(String key) throws Exception;
+	public String decrypt(String key) throws Exception;
 }

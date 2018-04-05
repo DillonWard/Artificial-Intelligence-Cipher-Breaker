@@ -6,28 +6,16 @@ package ie.gmit.sw.ai;
 public class Playfair implements Cryptography{
 
 	private String cipherText;
-	
-	@Override
-	public String encrpyt(String key) {
-		return null;
-	}
 
-	@Override
-	public String decrypt(String key) {
-		char[][] cipherTable = tableBuilder(key);
-		return cipherCrack(cipherTable, 0, new StringBuilder(), true);
+	public Playfair(String cipherText) {
+		super();
+		this.cipherText = cipherText;
 	}
 	
-	public char[][] tableBuilder(String key){
-		char[][] cipherTable = new char[5][5];
-		int index = 0;
-		for (int i = 0; i < 5; i++) {
-			for (int j = 0; j < 5; j++) {
-				cipherTable[i][j] = key.charAt(index);
-				index++;
-			}
-		}
-		return cipherTable;
+
+	public String decrypt(String decryptionKey) throws Exception {		
+		char[][] cipherTable = populateTable(decryptionKey);
+		return cipherCrack(cipherTable, 0, new StringBuilder(), true);
 	}
 	
 	private String cipherCrack(char[][] table, int index, StringBuilder sb, boolean decrypt) {
@@ -59,12 +47,31 @@ public class Playfair implements Cryptography{
 		}else return sb.toString();
 	}
 	
+	
+	public char[][] populateTable(String key){
+		char[][] cipherTable = new char[5][5];
+		int index = 0;
+		for (int i = 0; i < 5; i++) {
+			for (int j = 0; j < 5; j++) {
+				cipherTable[i][j] = key.charAt(index);
+				index++;
+			}
+		}
+		return cipherTable;
+	}
 	public String getCipherText() {
 		return cipherText;
 	}
 
 	public void setCipherText(String cipherText) {
 		this.cipherText = cipherText;
+	}
+
+
+	@Override
+	public String encrpyt(String key) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
