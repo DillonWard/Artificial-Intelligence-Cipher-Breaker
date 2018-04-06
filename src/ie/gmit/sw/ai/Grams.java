@@ -8,30 +8,31 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Grams {
-
-	private String filename;
+	
+	private String fname;
 	private Map<String, Integer> grams;
 	private long grade;
 	
 	public Grams(String fileName) {
-		this.filename = fileName;
+		this.fname = fileName;
 		this.grams = new HashMap<String, Integer>();
 	}
 
-	public Map<String, Integer> gramFactory()  throws Exception {
+	public Map<String, Integer> gramsFactory()  throws Exception {
 		long count = 0;
-		BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(new File(filename))));
+		BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(new File(fname))));
 		String line = "";
 		
 		while((line = br.readLine()) != null) {
 			grams.put(line.split(" ")[0], Integer.parseInt(line.split(" ")[1]));
 			count += Double.parseDouble(line.split(" ")[1]);
 		}
+		setGrade(count);
 		br.close();	
 		return this.grams;
 	}
 	
-	public double scoreText(String cipherText) {
+	public double gradeText(String cipherText) {
 		double score = 0;
 		int frequency = 0;
 		
@@ -47,8 +48,8 @@ public class Grams {
 		return score;
 	}
 	
-	public void setGrade(long no) {
-		this.grade = no;
+	public void setGrade(long grade) {
+		this.grade = grade;
 	}
 	
 	public long getGrade() {

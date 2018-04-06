@@ -2,6 +2,7 @@ package ie.gmit.sw.ai;
 
 import java.security.SecureRandom;
 
+
 public class Key {
 	
 	private static Key instance;
@@ -13,11 +14,12 @@ public class Key {
 		return (instance == null) ? new Key() : instance;
 	}
 
-
 	public String generateKey() {
+		
 		StringBuilder newCipherKey = new StringBuilder();
 		String cipherKey = "ABCDEFGHIKLMNOPQRSTUVWXYZ";
-		newCipherKey.append((cipherKey.length() < 25) ? new FileParser(null).removeRecurringChars(cipherKey + "ABCDEFGHIKLMNOPQRSTUVWXYZ") : cipherKey);
+		
+		newCipherKey.append((cipherKey.length() < 25) ? new FileParser(null).spliceDuplicates(cipherKey + "ABCDEFGHIKLMNOPQRSTUVWXYZ") : cipherKey);
 		
 		for (int i = 0; i < cipherKey.length(); i++) {	
 			for (int j = newCipherKey.length() - 1; j > 0; j--) {
@@ -107,28 +109,4 @@ public class Key {
 			}
 			return new String(newKey);
 	}
-
-
-//	public String generateKey(char[] key) {
-//		int index;
-//		Random rand = new SecureRandom();
-//		
-//		for (int i = key.length - 1; i > 0; i--) {
-//			 index = rand.nextInt(i + 1);
-//			 if (index != i) {
-//				 // key[index] = key[index] ^ key[i]
-//				 key[index] ^= key[i];
-//				 
-//				 // key[i] = key[i] ^ key[index]
-//				 key[i] ^= key[index];
-//				 
-//				 // key[index] = key[index] ^ key[i]
-//				 key[index] ^= key[i];
-//			 } 
-//		}	
-//		return new String(key);
-//		
-//	}
-
-
 }

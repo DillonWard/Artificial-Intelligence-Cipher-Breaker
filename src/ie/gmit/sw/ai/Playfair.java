@@ -1,13 +1,10 @@
-// Adapted from: https://github.com/mckennapsean/code-examples/blob/master/Java/Playfair.java
-
-
 package ie.gmit.sw.ai;
 
 import java.util.LinkedList;
 import java.util.List;
 
-public class Playfair implements Cryptography{
 
+public class Playfair implements Cryptography{
 
 	private List<Position> pos;
 	private StringBuilder normalText;
@@ -42,10 +39,10 @@ public class Playfair implements Cryptography{
 		for(index = 0; index < this.cipherText.length() / 2; index ++) {
 			char a = this.cipherText.charAt(2 * index);
 			char b = this.cipherText.charAt(2 * index + 1);
-			int r1 = (int) Position.getPosition(a, cipher).getPosX();
-			int c1 = (int) Position.getPosition(a, cipher).getPosY();
-			int r2 = (int) Position.getPosition(b, cipher).getPosX();
-			int c2 = (int) Position.getPosition(b, cipher).getPosY();
+			int r1 = (int) Position.getPos(a, cipher).getPosX();
+			int c1 = (int) Position.getPos(a, cipher).getPosY();
+			int r2 = (int) Position.getPos(b, cipher).getPosX();
+			int c2 = (int) Position.getPos(b, cipher).getPosY();
 
 			if (r1 == r2) {
 				c1 = (c1 + 4) % 5; 
@@ -95,5 +92,4 @@ public class Playfair implements Cryptography{
 	public void setCipherText(String cipherText) {
 		this.cipherText = cipherText;
 	}
-
 }

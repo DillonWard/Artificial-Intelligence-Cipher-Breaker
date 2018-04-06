@@ -1,14 +1,14 @@
 package ie.gmit.sw.ai;
 
-
 public class FileParser {
-	private String filename;
 	
-	public FileParser(String fileName) {
-		this.filename = fileName;
+	private String fname;
+	
+	public FileParser(String fname) {
+		this.fname = fname;
 	}
 	
-	public String removeRecurringChars(String l) {
+	public String spliceDuplicates(String l) {
 		char[] line = l.toUpperCase().toCharArray();
 		
 		for(int i = 0; i < line.length; i++) {

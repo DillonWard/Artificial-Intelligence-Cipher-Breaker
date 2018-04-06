@@ -1,6 +1,5 @@
 package ie.gmit.sw.ai;
 
-import java.io.PrintWriter;
 import java.security.SecureRandom;
 import java.util.Map;
 
@@ -26,12 +25,12 @@ public class SimulatedAnnealing {
 		this.transitions = transitions;
 	}
 	
-	public void annealing() throws Throwable {		
+	public void simulatedAnnealing() throws Throwable {		
 		
-		gramsMap = grams.gramFactory();
+		gramsMap = grams.gramsFactory();
 		String parent = key.generateKey();
 		String decryptedText = playFair.decrypt(parent);
-		double parentScore = grams.scoreText(decryptedText);
+		double parentScore = grams.gradeText(decryptedText);
 		double bestScore = parentScore;
 		double probability;
 		rand = new SecureRandom();
@@ -41,7 +40,7 @@ public class SimulatedAnnealing {
 			for (int index = transitions; index > 0; index--) {
 				String child = key.shuffleKey(parent);
 				decryptedText = playFair.decrypt(child);
-				double childScore = grams.scoreText(decryptedText);
+				double childScore = grams.gradeText(decryptedText);
 				double delta = childScore - parentScore;
 				if(delta > 0) {
 					parent = child;
@@ -64,6 +63,6 @@ public class SimulatedAnnealing {
 			}
 		}
 		
-		System.out.println("\n\nKey found: " + parent + "\nDecrypted message: " + playFair.decrypt(parent));
+		System.out.println("\n\nKey: " + parent + "\nDecrypted message: " + playFair.decrypt(parent));
 	}
 }
