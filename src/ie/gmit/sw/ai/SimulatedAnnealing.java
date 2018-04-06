@@ -1,6 +1,5 @@
 package ie.gmit.sw.ai;
 
-import java.io.IOException;
 import java.security.SecureRandom;
 import java.util.HashMap;
 import java.util.Map;
@@ -8,49 +7,43 @@ import java.util.Map;
 public class SimulatedAnnealing {
 	
 	private SecureRandom rand;
-	private Playfair playfair;
-	private Grams grams;
-	private Key key;
-	
 	private String bestKey;
-	private String bestTxt;
+	private String bestText;
+	
 	private String stats;	
+	private String parentKey;
+	private String decryptedText;
+	private String cipherText;
+	private double parentGrade;
+	private double bestScore;
+	private double initialScore;
 	private int temperature;
 	
-	private Map<String, Integer> gramsMap; 
 	
-	public SimulatedAnnealing(int temp, String cipherText) {
-		super();
-		this.rand = new SecureRandom();
-		this.grams = new Grams("4grams.txt"); 
-		this.playfair = new Playfair(cipherText);
-		this.key = Key.keyInstance();
-		this.stats = "";
+	private Map<String, Integer> gramsMap = new HashMap<String, Integer>(); 
+	
+	public SimulatedAnnealing(Map<String, Integer> grams, int temperature, String cipherText, String parentKey, String decryptedText, double parentGrade) {
 		this.temperature = temperature;
-		this.gramsMap = new HashMap<String, Integer>(); 
+		this.cipherText = cipherText;
+		this.parentKey = parentKey;
+		this.decryptedText = decryptedText;
+		this.parentGrade = parentGrade;
+		this.gramsMap = grams;
+		
 
 	}
 	
 	public void simulate() throws Exception{
 		
-		gramsMap = grams.gramFactory();
-		
-		String parent = key.generateKey();						
-		String decryptedText = playfair.decrypt(parent);				
-		double parentScore = grams.gradeDecrypt(decryptedText);		
-		double bestScore = parentScore;	
+		double bestScore = parentGrade;	
 		double initScore = bestScore;
-		System.out.println("Initial score: " + initScore + " for key: "+ parent);
+		System.out.println("Initial score: " + initScore + " for key: "+ parentKey);
 		
 		for(int temp = temperature; temp > 0; temp--) {			
 			for (int index = 50000; index > 0; index--) {
 				
 			}
-			
-
 		}
-	
-		
 	}
 
 	

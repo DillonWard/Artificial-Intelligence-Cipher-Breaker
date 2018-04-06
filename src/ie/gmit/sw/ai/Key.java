@@ -14,9 +14,7 @@ public class Key {
 		return (instance == null) ? new Key() : instance;
 	}
 	
-	public String generateKey() {
-		String cipherKey = "ABCDEFGHIKLMNOPQRSTUVWXYZ";
-		char[] key = cipherKey.toCharArray();
+	public String generateKey(char[] key) {
 		
 		 int index;
 		 Random random = new SecureRandom();

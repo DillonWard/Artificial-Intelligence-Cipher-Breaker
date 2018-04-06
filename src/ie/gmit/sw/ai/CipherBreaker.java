@@ -1,8 +1,9 @@
 package ie.gmit.sw.ai;
 
+import java.util.Map;
 import java.util.Scanner;
 
-public class ProxyRunner {
+public class CipherBreaker {
 	@SuppressWarnings("unused")
 	public static void main(String[] args) throws Throwable {
 
@@ -11,7 +12,6 @@ public class ProxyRunner {
 		boolean running = true;
 		String fname = "";
 		Key key = new Key();
-		Playfair pf;
 		
 		do {
 			System.out.println("1: Decrypt a file \n2: Encrypt a file \n3: Exit");
@@ -23,23 +23,28 @@ public class ProxyRunner {
 				fname = input.next();
 				fname += ".txt";
 				String cipherText = new FileParser().readFile(fname);
-				
-				long start = System.currentTimeMillis();
+				String cipherKey = "ABCDEFGHIKLMNOPQRSTUVWXYZ";
 
-				SimulatedAnnealing sa = new SimulatedAnnealing(100, cipherText);
-				sa.simulate();
+				long start = System.currentTimeMillis();
+				
+				
+				String parentKey = key.generateKey(cipherText.toCharArray());
+				Grams g = new Grams(fname);
+				Playfair playfair = new Playfair(cipherText);
+				
+
+				Map<String, Integer> grams = g.gramFactory();
+				String decrypted = new Playfair(cipherText).decrypt(parentKey);
+				
+				
+				double parentGrade = g.gradeDecrypt(decrypted);
+				String decryptedText = playfair.decrypt(parentKey);
+				SimulatedAnnealing sa = new SimulatedAnnealing(grams, 20, cipherText, parentKey, decryptedText, parentGrade);
+
+				
 				
 				long length = System.currentTimeMillis() - start;
 				
-				/*
-				 * was previously trying to generate everything before passing into
-				 * simulated annealing
-				String genKey = key.generateKey(cipherText.toCharArray());
-				Map<String, Integer> grams = g.gramFactory(fname);
-				String decrypted = new Playfair(cipherText).decrypt(genKey);
-				double score = g.gradeDecrypt(decrypted);
-				sa.simulatedAnnealing(cipherText, grams, genKey, decrypted, score);
-				*/
 				
 				break;
 
