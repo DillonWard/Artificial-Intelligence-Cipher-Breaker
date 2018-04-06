@@ -18,18 +18,21 @@ public class SimulatedAnnealing {
 	private double bestScore;
 	private double initialScore;
 	private int temperature;
+	Grams g;
 	
 	
-	private Map<String, Integer> gramsMap = new HashMap<String, Integer>(); 
-	
-	public SimulatedAnnealing(Map<String, Integer> grams, int temperature, String cipherText, String parentKey, String decryptedText, double parentGrade) {
+	//private Map<String, Integer> gramsMap = new HashMap<String, Integer>(); 
+	private Map<String, Integer> gramsMap; 
+
+	public SimulatedAnnealing(Map<String, Integer> gramsMap, int temperature, String cipherText, String parentKey, String decryptedText, double parentGrade) {
 		this.temperature = temperature;
 		this.cipherText = cipherText;
 		this.parentKey = parentKey;
 		this.decryptedText = decryptedText;
 		this.parentGrade = parentGrade;
-		this.gramsMap = grams;
-		
+		this.gramsMap = gramsMap;
+		//this.map = map; 
+
 
 	}
 	
@@ -37,6 +40,7 @@ public class SimulatedAnnealing {
 		
 		double bestScore = parentGrade;	
 		double initScore = bestScore;
+		gramsMap = g.gramFactory();
 		System.out.println("Initial score: " + initScore + " for key: "+ parentKey);
 		
 		for(int temp = temperature; temp > 0; temp--) {			
@@ -58,7 +62,7 @@ public class SimulatedAnnealing {
 	
 }
 
-	/*
+/*
 	public void simulatedAnnealing(String cipher, Map<String, Integer> grams, String key, String decrypted, double score) throws Throwable{
 		this.grams = grams;
 		this.key = key;

@@ -1,10 +1,15 @@
 package ie.gmit.sw.ai;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
 import java.util.Map;
 import java.util.Scanner;
 
 public class CipherBreaker {
 	@SuppressWarnings("unused")
+	
 	public static void main(String[] args) throws Throwable {
 
 		Scanner input = new Scanner(System.in);
@@ -14,7 +19,7 @@ public class CipherBreaker {
 		Key key = new Key();
 		
 		do {
-			System.out.println("1: Decrypt a file \n2: Encrypt a file \n3: Exit");
+			System.out.println("1: Decrypt a file \n2: Exit");
 			choice = input.nextInt();
 
 			switch (choice) {
@@ -22,38 +27,49 @@ public class CipherBreaker {
 				System.out.println("Enter file name: ");
 				fname = input.next();
 				fname += ".txt";
-				String cipherText = new FileParser().readFile(fname);
-				String cipherKey = "ABCDEFGHIKLMNOPQRSTUVWXYZ";
-
-				long start = System.currentTimeMillis();
+				System.out.println(fname);
 				
+				BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(new File(filename))));
+				StringBuilder sb = new StringBuilder();
+				String line;
 				
-				String parentKey = key.generateKey(cipherText.toCharArray());
-				Grams g = new Grams(fname);
-				Playfair playfair = new Playfair(cipherText);
+				while((line = br.readLine()) != null) {
+					sb.append(line.toUpperCase().replaceAll("\\W", "").replace("J", ""));
+				}
 				
-
-				Map<String, Integer> grams = g.gramFactory();
-				String decrypted = new Playfair(cipherText).decrypt(parentKey);
-				
-				
-				double parentGrade = g.gradeDecrypt(decrypted);
-				String decryptedText = playfair.decrypt(parentKey);
-				SimulatedAnnealing sa = new SimulatedAnnealing(grams, 20, cipherText, parentKey, decryptedText, parentGrade);
+				int idealTime = (int)((10 + 0.087 * (sb.toString().length() - 84)));
+				int bestTemp = idealTime / 3;
+				long startTime = System.currentTimeMillis();
+				SimulatedAnnealing sa = new SimulatedAnnealing(bestTemp, 50000, sb.toString());
 
 				
 				
-				long length = System.currentTimeMillis() - start;
+//				String cipherText = new FileParser().readFile(fname);
+//				String cipherKey = "ABCDEFGHIKLMNOPQRSTUVWXYZ";
+//
+//				long start = System.currentTimeMillis();
+//						
+//				String parentKey = key.generateKey(cipherText.toCharArray());
+//				Grams g = new Grams(fname);
+//				Playfair playfair = new Playfair(cipherText);
+//				
+//
+//				Map<String, Integer> grams = g.gramFactory();
+//				String decrypted = new Playfair(cipherText).decrypt(parentKey);
+//				
+//				
+//				double parentGrade = g.scoreText(decrypted);
+//				String decryptedText = playfair.decrypt(parentKey);
+//				SimulatedAnnealing sa = new SimulatedAnnealing(grams, 20, cipherText, parentKey, decryptedText, parentGrade);				
+//				long length = System.currentTimeMillis() - start;
 				
 				
 				break;
 
 			case 2:
-				break;
-
-			case 3:
 				running = false;
 				break;
+
 			}
 
 		} while (running);

@@ -1,57 +1,57 @@
 package ie.gmit.sw.ai;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class Grams {
 
+	private String filename;
 	private Map<String, Integer> grams;
-	private double grade;
-	private String fileName;
-
+	private long no;
+	
 	public Grams(String fileName) {
-		this.fileName = fileName;
+		this.filename = fileName;
 		this.grams = new HashMap<String, Integer>();
-	}// Constructor
+	}
 
-
-	public Map<String, Integer> gramFactory() throws IOException {
-		Stream<String> stream = Files.lines(Paths.get(fileName));
-
-		grams = stream
-				.map(tmp -> tmp.split(" "))
-				.collect(Collectors.toMap(tmp -> tmp[0], tmp -> Integer.parseInt(tmp[1])));
-
-		stream.close();
+	public Map<String, Integer> gramFactory()  throws Exception {
+		long count = 0;
+		BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(new File(filename))));
+		String line = "";
+		
+		while((line = br.readLine()) != null) {
+			grams.put(line.split(" ")[0], Integer.parseInt(line.split(" ")[1]));
+			count += Double.parseDouble(line.split(" ")[1]);
+		}
+		br.close();	
 		return this.grams;
 	}
-
-	public double gradeDecrypt(String decryptedText) {
+	
+	public double scoreText(String cipherText) {
 		double score = 0;
 		int frequency = 0;
-
-		for (int i = 0; i < decryptedText.length() - 4; i++) {
-			if (grams.get(decryptedText.substring(i, i + 4)) != null) {
-				frequency = grams.get(decryptedText.substring(i, i + 4));
-			} else {
+		
+		for(int i=0; i< cipherText.length() - 4; i++){
+			if(grams.get(cipherText.substring(i, i+4)) != null){
+				frequency = grams.get(cipherText.substring(i, i+4));
+			}else{
 				frequency = 1;
 			}
-			score += Math.log10((double) frequency / this.getGrade());
+			score += Math.log10((double) frequency/this.getGrade());
 		}
-
+		
 		return score;
 	}
-
-	public void setGrade(double grade) {
-		this.grade = grade;
+	
+	public void setGrade(long no) {
+		this.no = no;
 	}
-
-	public double getGrade() {
-		return this.grade;
+	
+	public long getGrade() {
+		return this.no;
 	}
 }
