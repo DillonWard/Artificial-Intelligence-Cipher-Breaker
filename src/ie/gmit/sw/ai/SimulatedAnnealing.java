@@ -1,5 +1,7 @@
 package ie.gmit.sw.ai;
 
+import java.io.PrintWriter;
+
 // Author: Dillon Ward (Dillonward2017@gmail.com)
 // Adapted from: (1) http://javatutorialhq.com/java/lang/math-class-tutorial/exp-double-method-example/
 
@@ -125,5 +127,11 @@ public class SimulatedAnnealing {
 
 		// print the result
 		System.out.println("\n\nKey: " + parent + "\nDecrypted message: " + playFair.decrypt(parent));
+		
+		// prints to a file called 'result'
+		try (PrintWriter out = new PrintWriter("result.txt")) {
+		    out.println("Key found: " + parent + "\nDecrypted message: " + playFair.decrypt(parent));
+		}
+
 	}
 }
