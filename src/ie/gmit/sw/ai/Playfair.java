@@ -1,5 +1,6 @@
 package ie.gmit.sw.ai;
-
+// Dillon Ward (Dillonward2017@gmail.com)
+// Adapted from: (1) https://github.com/mckennapsean/code-examples/blob/master/Java/Playfair.java
 import java.util.LinkedList;
 import java.util.List;
 
@@ -11,6 +12,7 @@ public class Playfair implements Cryptography{
 	private char[][] cipher;
 	private String cipherText;
 
+
 	public Playfair() {
 		super();
 		this.pos = new LinkedList<Position>();
@@ -19,6 +21,11 @@ public class Playfair implements Cryptography{
 		this.cipherText = "";
 	}
 	
+	/* (non-Javadoc)
+	 * @see ie.gmit.sw.ai.Cryptography#decrypt(java.lang.String)
+	 */
+	
+	// key is fed into this function to decrypt text (1)
 	public String decrypt(String key) throws Exception {
 		
 		String decryptKey = key;
@@ -61,34 +68,58 @@ public class Playfair implements Cryptography{
 		return sb.toString();
 	}
 
+	/**
+	 * @return
+	 */
 	public List<Position> getPositions() {
 		return pos;
 	}
 
+	/**
+	 * @param positions
+	 */
 	public void setPositions(List<Position> positions) {
 		this.pos = positions;
 	}
 
+	/**
+	 * @return
+	 */
 	public String getPlainText() {
 		return normalText.toString();
 	}
 
+	/**
+	 * @param plainText
+	 */
 	public void setPlainText(String plainText) {
 		this.normalText.append(plainText);
 	}
 
+	/**
+	 * @return
+	 */
 	public char[][] getCipherTable() {
 		return cipher;
 	}
 
+	/**
+	 * @param cipherTable
+	 */
 	public void setCipherTable(char[][] cipherTable) {
 		this.cipher = cipherTable;
 	}
 
+	/**
+	 * @return
+	 */
 	public String getCipherText() {
 		return cipherText;
 	}
 
+	/**
+	 * @param cipherText
+	 */
 	public void setCipherText(String cipherText) {
 		this.cipherText = cipherText;
 	}
