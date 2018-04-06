@@ -1,25 +1,20 @@
 package ie.gmit.sw.ai;
 
-import java.io.ByteArrayOutputStream;
-import java.io.FileInputStream;
-import java.io.InputStream;
 
 public class FileParser {
-
-	public FileParser() {
+	private String filename;
+	
+	public FileParser(String fileName) {
+		this.filename = fileName;
 	}
-
-	public String readFile(String fileName) throws Throwable {
+	
+	public String removeRecurringChars(String l) {
+		char[] line = l.toUpperCase().toCharArray();
 		
-		InputStream input = new FileInputStream(fileName);
-		ByteArrayOutputStream response = new ByteArrayOutputStream();
-		byte[] bytes = new byte[1050];
-		int length;
-
-		
-		while((length = input.read(bytes))!= -1){
-			response.write(bytes, 0, length);
+		for(int i = 0; i < line.length; i++) {
+			if(i != line.length - 1) 
+				line[i+1] = (line[i] == line[i+1]) ? 'X' : line[i+1];
 		}
-		return(response.toString().length() > 750) ? response.toString().substring(0, 750) : response.toString();
+		return new String(line);
 	}
 }

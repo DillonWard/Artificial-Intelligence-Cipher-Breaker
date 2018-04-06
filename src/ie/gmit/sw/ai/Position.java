@@ -2,14 +2,14 @@ package ie.gmit.sw.ai;
 
 public class Position {
 	
-	private int x;
-	private int y;
+	private int xPos;
+	private int yPos;
 
 	public Position () {}
 	
-	private Position(int x, int y) {
-		this.x = x;
-		this.y = y;
+	private Position(int xPos, int yPos) {
+		this.xPos = xPos;
+		this.yPos = yPos;
 	}
 
 	public static Position getPosition(char target, char[][] cipherTable) {
@@ -25,11 +25,11 @@ public class Position {
 	}
 	
 	public int getPosX() {
-		return this.x;
+		return this.xPos;
 	}
 	
 	public int getPosY() {
-		return this.y;
+		return this.yPos;
 	}
 
 }

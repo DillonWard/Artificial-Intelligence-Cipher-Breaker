@@ -29,7 +29,7 @@ public class CipherBreaker {
 				fname += ".txt";
 				System.out.println(fname);
 				
-				BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(new File(filename))));
+				BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(new File(fname))));
 				StringBuilder sb = new StringBuilder();
 				String line;
 				
@@ -41,8 +41,22 @@ public class CipherBreaker {
 				int bestTemp = idealTime / 3;
 				long startTime = System.currentTimeMillis();
 				SimulatedAnnealing sa = new SimulatedAnnealing(bestTemp, 50000, sb.toString());
-
+				sa.annealing();
 				
+				System.out.println("1: Try again\n2: Exit");
+				
+				int again = input.nextInt();
+				
+				switch(again){
+				case 1:
+					sa.annealing();
+				break;
+				
+				case 2: 
+					System.exit(0);
+					break;
+				}
+					
 				
 //				String cipherText = new FileParser().readFile(fname);
 //				String cipherKey = "ABCDEFGHIKLMNOPQRSTUVWXYZ";

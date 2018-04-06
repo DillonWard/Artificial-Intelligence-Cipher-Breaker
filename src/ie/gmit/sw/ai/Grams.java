@@ -11,7 +11,7 @@ public class Grams {
 
 	private String filename;
 	private Map<String, Integer> grams;
-	private long no;
+	private long grade;
 	
 	public Grams(String fileName) {
 		this.filename = fileName;
@@ -48,10 +48,10 @@ public class Grams {
 	}
 	
 	public void setGrade(long no) {
-		this.no = no;
+		this.grade = no;
 	}
 	
 	public long getGrade() {
-		return this.no;
+		return this.grade;
 	}
 }

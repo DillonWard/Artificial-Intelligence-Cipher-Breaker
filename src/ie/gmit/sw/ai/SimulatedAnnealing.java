@@ -1,77 +1,69 @@
 package ie.gmit.sw.ai;
 
+import java.io.PrintWriter;
 import java.security.SecureRandom;
-import java.util.HashMap;
 import java.util.Map;
+
 
 public class SimulatedAnnealing {
 	
+	private Key key;
+	private Playfair playFair;
+	private Grams grams;
 	private SecureRandom rand;
-	private String bestKey;
-	private String bestText;
-	
-	private String stats;	
-	private String parentKey;
-	private String decryptedText;
-	private String cipherText;
-	private double parentGrade;
-	private double bestScore;
-	private double initialScore;
 	private int temperature;
-	Grams g;
+	private int transitions;
 	
-	
-	//private Map<String, Integer> gramsMap = new HashMap<String, Integer>(); 
 	private Map<String, Integer> gramsMap; 
-
-	public SimulatedAnnealing(Map<String, Integer> gramsMap, int temperature, String cipherText, String parentKey, String decryptedText, double parentGrade) {
+	
+	public SimulatedAnnealing(int temperature, int transitions, String cipherText) {
+		super();
+		this.grams = new Grams("4grams.txt");
+		this.playFair = new Playfair();
+		this.playFair.setCipherText(cipherText);
+		this.key = Key.keyInstance();
 		this.temperature = temperature;
-		this.cipherText = cipherText;
-		this.parentKey = parentKey;
-		this.decryptedText = decryptedText;
-		this.parentGrade = parentGrade;
-		this.gramsMap = gramsMap;
-		//this.map = map; 
-
-
+		this.transitions = transitions;
 	}
 	
-	public void simulate() throws Exception{
+	public void annealing() throws Throwable {		
 		
-		double bestScore = parentGrade;	
-		double initScore = bestScore;
-		gramsMap = g.gramFactory();
-		System.out.println("Initial score: " + initScore + " for key: "+ parentKey);
+		gramsMap = grams.gramFactory();
+		String parent = key.generateKey();
+		String decryptedText = playFair.decrypt(parent);
+		double parentScore = grams.scoreText(decryptedText);
+		double bestScore = parentScore;
+		double probability;
+		rand = new SecureRandom();
+		double startScore = bestScore;
 		
-		for(int temp = temperature; temp > 0; temp--) {			
-			for (int index = 50000; index > 0; index--) {
-				
+		for(int temp = temperature; temp > 0; temp--) {
+			for (int index = transitions; index > 0; index--) {
+				String child = key.shuffleKey(parent);
+				decryptedText = playFair.decrypt(child);
+				double childScore = grams.scoreText(decryptedText);
+				double delta = childScore - parentScore;
+				if(delta > 0) {
+					parent = child;
+					parentScore = childScore;
+				} else  {
+					probability = (Math.exp((delta / temp)));
+					if(probability > rand.nextDouble()) {
+						parent = child;
+						parentScore = childScore;
+					}
+				}
+
+				if(parentScore > bestScore) {
+					bestScore = parentScore;
+				}
+			}
+
+			if(bestScore > (startScore/1.5)){
+				if(bestScore > (startScore/1.6)) break;
 			}
 		}
+		
+		System.out.println("\n\nKey found: " + parent + "\nDecrypted message: " + playFair.decrypt(parent));
 	}
-
-	
-	public void setStats(String stats) {
-		this.stats = stats;
-	}
-	
-	public String getStats() {
-		return this.stats;
-	}
-
-	
 }
-
-/*
-	public void simulatedAnnealing(String cipher, Map<String, Integer> grams, String key, String decrypted, double score) throws Throwable{
-		this.grams = grams;
-		this.key = key;
-		this.decrypted = decrypted;
-		this.score = score;
-		bestGrade = score;
-		
-		System.out.println("Initial Score:" + initialGrade + " for key: " + key);
-		
-		
-	}
-*/
